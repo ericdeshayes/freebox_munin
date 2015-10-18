@@ -142,10 +142,10 @@ function get_uptime {
   #----------------------------------------------------------------------------
   UPTIME=$( get_page | awk '/Temps depuis la mise en route/{print $7, $8, $9, $10, $11, $12}' )
 
-  local DAY=$(echo "$UPTIME" | grep -oP '\K[0-9]+(?= jour)' )
-  local HOU=$(echo "$UPTIME" | grep -oP '\K[0-9]+(?= heure)' )
-  local MIN=$(echo "$UPTIME" | grep -oP '\K[0-9]+(?= minute)' )
-  local SEC=$(echo "$UPTIME" | grep -oP '\K[0-9]+(?= seconde)' )
+  local DAY=$(echo "$UPTIME" | grep -oE '[0-9]+ jour' | grep -oE '[0-9]+')
+  local HOU=$(echo "$UPTIME" | grep -oE '[0-9]+ heure' | grep -oE '[0-9]+')
+  local MIN=$(echo "$UPTIME" | grep -oE '[0-9]+ minute' | grep -oE '[0-9]+')
+  local SEC=$(echo "$UPTIME" | grep -oE '[0-9]+ seconde' | grep -oE '[0-9]+')
 
   if [ -z $DAY ]; then
     DAY=0
